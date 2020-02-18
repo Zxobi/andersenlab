@@ -5,28 +5,28 @@ import com.andersenlab.patternsSample.io.Printer;
 
 import java.util.stream.Collectors;
 
-public class GetBooksCommand implements Command {
+public class GetLiteratureCommand implements Command {
 
-    private static final String MESSAGE_EMPTY = "No books yet";
+    private static final String MESSAGE_EMPTY = "Nothing here yet";
 
     private Printer printer;
 
-    public GetBooksCommand(Printer printer) {
+    public GetLiteratureCommand(Printer printer) {
         this.printer = printer;
     }
 
     @Override
     public void execute() {
-        String books = InfoHolder.getInstance()
+        String literature = InfoHolder.getInstance()
                 .getPublishingHouses()
                 .stream()
                 .map(
-                        publishingHouses -> publishingHouses.getBooks()
+                        publishingHouses -> publishingHouses.getLiteratures()
                                 .stream()
                                 .map(Object::toString)
                                 .collect(Collectors.joining("\n"))
                 ).collect(Collectors.joining("\n"));
 
-        printer.print(books.isEmpty() ? MESSAGE_EMPTY : books);
+        printer.print(literature.isEmpty() ? MESSAGE_EMPTY : literature);
     }
 }

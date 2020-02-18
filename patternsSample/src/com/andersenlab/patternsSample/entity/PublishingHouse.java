@@ -8,7 +8,7 @@ public class PublishingHouse {
 
     private String name;
 
-    private List<Book> books = new ArrayList<>();
+    private List<Literature> literatures = new ArrayList<>();
 
     public PublishingHouse(String name) {
         this.name = name;
@@ -18,20 +18,32 @@ public class PublishingHouse {
         return name;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public List<Literature> getLiteratures() {
+        return literatures;
     }
 
     public Book publishBook(String title, String author) {
-        Book.Builder builder = Book.newBuilder();
+        BookBuilder builder = Book.newBuilder();
         builder.setTitle(title)
                 .setAuthor(author)
                 .setPublishingHouse(this)
                 .setPublishDate(new Date());
 
         Book book = builder.build();
-        books.add(book);
+        literatures.add(book);
         return book;
+    }
+
+    public Magazine publishMagazine(String title, int serialNumber) {
+        MagazineBuilder builder = Magazine.newBuilder();
+        builder.setTitle(title)
+                .setSerialNumber(serialNumber)
+                .setPublishingHouse(this)
+                .setPublishDate(new Date());
+
+        Magazine magazine = builder.build();
+        literatures.add(magazine);
+        return magazine;
     }
 
     @Override

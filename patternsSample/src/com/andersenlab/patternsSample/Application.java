@@ -10,7 +10,6 @@ import com.andersenlab.patternsSample.util.InfoHolder;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Application {
 
@@ -21,8 +20,9 @@ public class Application {
         Map<String, Command> commands = new HashMap<>();
         commands.put("Create publishing house", new CreatePublishingHouseCommand(reader));
         commands.put("Create book", new CreateBookCommand(printer, reader));
+        commands.put("Create magazine", new CreateMagazineCommand(printer, reader));
         commands.put("Get publishing hoses", new GetPublishingHousesCommand(printer));
-        commands.put("Get books", new GetBooksCommand(printer));
+        commands.put("Get literatures", new GetLiteratureCommand(printer));
         commands.put("Select publishing house", new SelectPublishingHouseCommand(printer, reader));
 
         Object[] keys = commands.keySet().toArray();
