@@ -23,13 +23,13 @@ public class PublishingHouse {
     }
 
     public Book publishBook(String title, String author) {
-        Book.Builder builder = new Book.Builder();
-        builder.setTitle(title);
-        builder.setAuthor(author);
-        builder.setPublishingHouse(this);
-        builder.setPublishDate(new Date());
+        Book.Builder builder = Book.newBuilder();
+        builder.setTitle(title)
+                .setAuthor(author)
+                .setPublishingHouse(this)
+                .setPublishDate(new Date());
 
-        Book book = builder.getBook();
+        Book book = builder.build();
         books.add(book);
         return book;
     }

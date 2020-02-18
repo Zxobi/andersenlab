@@ -9,8 +9,7 @@ public class Book {
     private PublishingHouse publishingHouse;
     private Date publishDate;
 
-    public Book() {
-    }
+    public Book() {}
 
     public String getTitle() {
         return title;
@@ -44,27 +43,33 @@ public class Book {
         this.publishingHouse = publishingHouse;
     }
 
-    static class Builder {
-        private Book book = new Book();
+    public static Builder newBuilder() {
+        return new Book().new Builder();
+    }
 
-        public Book getBook() {
-            return book;
+    public class Builder {
+        public Builder setTitle(String title) {
+            Book.this.setTitle(title);
+            return this;
         }
 
-        public void setTitle(String title) {
-            book.setTitle(title);
+        public Builder setAuthor(String author) {
+            Book.this.setAuthor(author);
+            return this;
         }
 
-        public void setAuthor(String author) {
-            book.setAuthor(author);
+        public Builder setPublishingHouse(PublishingHouse publishingHouse) {
+            Book.this.setPublishingHouse(publishingHouse);
+            return this;
         }
 
-        public void setPublishingHouse(PublishingHouse publishingHouse) {
-            book.setPublishingHouse(publishingHouse);
+        public Builder setPublishDate(Date publishDate) {
+            Book.this.setPublishDate(publishDate);
+            return this;
         }
 
-        public void setPublishDate(Date publishDate) {
-            book.setPublishDate(publishDate);
+        public Book build() {
+            return Book.this;
         }
     }
 
