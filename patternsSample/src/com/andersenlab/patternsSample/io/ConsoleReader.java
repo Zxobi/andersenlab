@@ -44,7 +44,7 @@ public class ConsoleReader implements Reader {
                 return input;
             }
 
-            printer.print(String.format(MESSAGE_TEMPLATE_INT_OUT_OF_BOUND, 1, maxLength));
+            printer.print(String.format(MESSAGE_TEMPLATE_LENGTH_OUT_OF_BOUND, 1, maxLength));
         }
     }
 
