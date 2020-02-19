@@ -50,16 +50,6 @@ public class LinkedList<E> {
     }
 
     public void clear() {
-        if (head == null) return;
-
-        Node<E> curNode = head;
-        Node<E> next;
-        do {
-            next = curNode.next;
-            curNode.next = null;
-            curNode = next;
-        } while (curNode != null);
-
         head = null;
         last = null;
         size = 0;
