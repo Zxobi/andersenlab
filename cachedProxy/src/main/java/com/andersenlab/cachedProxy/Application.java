@@ -6,6 +6,11 @@ public class Application {
 
     static class CachedService {
 
+        @Cached
+        public int[] localCachedWork() {
+            return new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        }
+
         @Cached(isExternal = true)
         public String hardWork(String arg) {
             try {
@@ -35,7 +40,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        CacheProxy proxy = new CacheProxy("./data");
+        CacheProxy proxy = new CacheProxy(new InmemoryMethodResultCache(), new ExternalMethodResultCache("./data"));
         CachedService proxied = proxy.cache(new CachedService());
 
         proxied.hardWork("message");
@@ -47,6 +52,8 @@ public class Application {
         proxied.hardWork("third message");
         proxied.externalCachedWork2(4);
         proxied.externalCachedWork2(5);
+        proxied.localCachedWork();
+        proxied.localCachedWork();
     }
 
 }
