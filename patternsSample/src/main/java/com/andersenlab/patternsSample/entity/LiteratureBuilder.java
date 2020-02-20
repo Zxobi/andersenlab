@@ -4,9 +4,15 @@ import java.util.Date;
 
 public abstract class LiteratureBuilder<ST extends Literature, B extends LiteratureBuilder<ST, B>> {
 
+    protected long id;
     protected String title;
     protected PublishingHouse publishingHouse;
     protected Date publishDate;
+
+    public B setId(long id) {
+        this.id = id;
+        return (B)this;
+    }
 
     public B setTitle(String title) {
         this.title = title;

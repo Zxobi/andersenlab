@@ -6,12 +6,26 @@ import java.util.List;
 
 public class PublishingHouse {
 
+    private long id;
     private String name;
 
     private List<Literature> literatures = new ArrayList<>();
 
     public PublishingHouse(String name) {
         this.name = name;
+    }
+
+    public PublishingHouse(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,6 +62,9 @@ public class PublishingHouse {
 
     @Override
     public String toString() {
-        return name;
+        return "PublishingHouse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

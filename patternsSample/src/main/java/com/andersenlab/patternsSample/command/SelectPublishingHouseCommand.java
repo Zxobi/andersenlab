@@ -1,5 +1,6 @@
 package com.andersenlab.patternsSample.command;
 
+import com.andersenlab.patternsSample.dao.Dao;
 import com.andersenlab.patternsSample.util.InfoHolder;
 import com.andersenlab.patternsSample.io.Printer;
 import com.andersenlab.patternsSample.io.Reader;
@@ -17,14 +18,17 @@ public class SelectPublishingHouseCommand implements Command {
     private Printer printer;
     private Reader reader;
 
-    public SelectPublishingHouseCommand(Printer printer, Reader reader) {
+    Dao<PublishingHouse, Long> dao;
+
+    public SelectPublishingHouseCommand(Printer printer, Reader reader, Dao<PublishingHouse, Long> dao) {
         this.printer = printer;
         this.reader = reader;
+        this.dao = dao;
     }
 
     @Override
     public void execute() {
-        List<PublishingHouse> publishingHouses = InfoHolder.getInstance().getPublishingHouses();
+        List<PublishingHouse> publishingHouses = dao.getAll();
         if (publishingHouses.isEmpty()) {
             printer.print(MESSAGE_EMPTY);
             return;

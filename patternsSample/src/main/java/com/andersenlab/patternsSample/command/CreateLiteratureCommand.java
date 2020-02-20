@@ -1,11 +1,13 @@
 package com.andersenlab.patternsSample.command;
 
+import com.andersenlab.patternsSample.dao.Dao;
+import com.andersenlab.patternsSample.entity.Literature;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
 import com.andersenlab.patternsSample.io.Printer;
 import com.andersenlab.patternsSample.io.Reader;
 import com.andersenlab.patternsSample.util.InfoHolder;
 
-public abstract class CreateLiteratureCommand implements Command {
+public abstract class CreateLiteratureCommand<E extends Literature> implements Command {
 
     private static final String MESSAGE_NO_PUBLISHING_HOUSE = "Publishing house not selected";
 
@@ -14,11 +16,14 @@ public abstract class CreateLiteratureCommand implements Command {
     protected Printer printer;
     protected Reader reader;
 
+    protected Dao<E, Long> dao;
+
     protected PublishingHouse publishingHouse;
 
-    public CreateLiteratureCommand(Printer printer, Reader reader) {
+    public CreateLiteratureCommand(Printer printer, Reader reader, Dao<E, Long> dao) {
         this.printer = printer;
         this.reader = reader;
+        this.dao = dao;
     }
 
     @Override

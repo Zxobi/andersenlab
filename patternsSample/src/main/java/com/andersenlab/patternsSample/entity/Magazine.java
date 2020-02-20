@@ -20,7 +20,8 @@ public class Magazine extends Literature {
     @Override
     public String toString() {
         return "Magazine{" +
-                "serialNumber=" + serialNumber +
+                "id=" + id +
+                ", serialNumber=" + serialNumber +
                 ", title='" + title + '\'' +
                 ", publishingHouse='" + publishingHouse.getName() + '\'' +
                 ", publishDate=" + publishDate +

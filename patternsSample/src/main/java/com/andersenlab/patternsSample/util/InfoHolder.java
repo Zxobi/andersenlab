@@ -23,14 +23,6 @@ public class InfoHolder {
         return instance;
     }
 
-    public void addPublishingHouse(PublishingHouse publishingHouse) {
-        publishingHouses.add(publishingHouse);
-    }
-
-    public List<PublishingHouse> getPublishingHouses() {
-        return publishingHouses;
-    }
-
     public PublishingHouse getCurPublishingHouse() {
         return curPublishingHouse;
     }

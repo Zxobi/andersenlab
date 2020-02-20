@@ -1,17 +1,18 @@
 package com.andersenlab.patternsSample.command;
 
-import com.andersenlab.patternsSample.util.InfoHolder;
+import com.andersenlab.patternsSample.dao.Dao;
+import com.andersenlab.patternsSample.entity.Book;
+import com.andersenlab.patternsSample.entity.Literature;
 import com.andersenlab.patternsSample.io.Printer;
 import com.andersenlab.patternsSample.io.Reader;
-import com.andersenlab.patternsSample.entity.PublishingHouse;
 
-public class CreateBookCommand extends CreateLiteratureCommand {
+public class CreateBookCommand extends CreateLiteratureCommand<Book> {
 
     private static final String MESSAGE_ENTER_TITLE = "Enter book title";
     private static final String MESSAGE_ENTER_AUTHOR = "Enter book author";
 
-    public CreateBookCommand(Printer printer, Reader reader) {
-        super(printer, reader);
+    public CreateBookCommand(Printer printer, Reader reader, Dao<Book, Long> dao) {
+        super(printer, reader, dao);
     }
 
     @Override
@@ -19,6 +20,6 @@ public class CreateBookCommand extends CreateLiteratureCommand {
         String title = reader.getString(MESSAGE_ENTER_TITLE, MAX_STRING_LENGTH);
         String author = reader.getString(MESSAGE_ENTER_AUTHOR, MAX_STRING_LENGTH);
 
-        publishingHouse.publishBook(title, author);
+        dao.create(publishingHouse.publishBook(title, author));
     }
 }

@@ -1,5 +1,6 @@
 package com.andersenlab.patternsSample.command;
 
+import com.andersenlab.patternsSample.dao.Dao;
 import com.andersenlab.patternsSample.util.InfoHolder;
 import com.andersenlab.patternsSample.io.Reader;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
@@ -11,13 +12,16 @@ public class CreatePublishingHouseCommand implements Command{
 
     private Reader reader;
 
-    public CreatePublishingHouseCommand(Reader reader) {
+    private Dao<PublishingHouse, Long> dao;
+
+    public CreatePublishingHouseCommand(Reader reader, Dao<PublishingHouse, Long> dao) {
         this.reader = reader;
+        this.dao = dao;
     }
 
     @Override
     public void execute() {
         String publishingHouseName = reader.getString(MESSAGE_ENTER_NAME, MAX_STRING_LENGTH);
-        InfoHolder.getInstance().addPublishingHouse(new PublishingHouse(publishingHouseName));
+        dao.create(new PublishingHouse(publishingHouseName));
     }
 }

@@ -1,7 +1,5 @@
 package com.andersenlab.patternsSample.entity;
 
-import java.util.Date;
-
 public class Book extends Literature {
 
     private String author;
@@ -22,7 +20,8 @@ public class Book extends Literature {
     @Override
     public String toString() {
         return "Book{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publishingHouse='" + publishingHouse.getName() + '\'' +
                 ", publishDate=" + publishDate +
