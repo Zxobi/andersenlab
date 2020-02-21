@@ -37,25 +37,25 @@ public class PublishingHouse {
     }
 
     public Book publishBook(String title, String author) {
-        BookBuilder builder = Book.newBuilder();
-        builder.setTitle(title)
+        Book book = new Book.Builder()
+                .setTitle(title)
                 .setAuthor(author)
                 .setPublishingHouse(this)
-                .setPublishDate(new Date());
+                .setPublishDate(new Date())
+                .build();
 
-        Book book = builder.build();
         literatures.add(book);
         return book;
     }
 
     public Magazine publishMagazine(String title, int serialNumber) {
-        MagazineBuilder builder = Magazine.newBuilder();
-        builder.setTitle(title)
+        Magazine magazine = new Magazine.Builder()
+                .setTitle(title)
                 .setSerialNumber(serialNumber)
                 .setPublishingHouse(this)
-                .setPublishDate(new Date());
+                .setPublishDate(new Date())
+                .build();
 
-        Magazine magazine = builder.build();
         literatures.add(magazine);
         return magazine;
     }

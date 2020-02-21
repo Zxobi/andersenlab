@@ -27,7 +27,7 @@ public abstract class CreateLiteratureCommand<E extends Literature> implements C
     }
 
     @Override
-    public final  void execute() {
+    public final void execute() {
         publishingHouse = InfoHolder.getInstance().getCurPublishingHouse();
         if (publishingHouse == null) {
             printer.print(MESSAGE_NO_PUBLISHING_HOUSE);

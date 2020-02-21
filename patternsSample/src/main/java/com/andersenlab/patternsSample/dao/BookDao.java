@@ -4,7 +4,10 @@ import com.andersenlab.patternsSample.db.DbManager;
 import com.andersenlab.patternsSample.entity.Book;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class BookDao extends AbstractJDBCDao<Book, Long> {
 
@@ -66,7 +69,7 @@ public class BookDao extends AbstractJDBCDao<Book, Long> {
 
     @Override
     protected Book buildEntity(ResultSet resultSet) throws SQLException {
-        return Book.newBuilder().setId(resultSet.getLong(1))
+        return new Book.Builder().setId(resultSet.getLong(1))
                 .setTitle(resultSet.getString(2))
                 .setPublishDate(resultSet.getDate(3))
                 .setAuthor(resultSet.getString(4))

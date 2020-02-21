@@ -1,7 +1,6 @@
 package com.andersenlab.patternsSample.dao;
 
 import com.andersenlab.patternsSample.db.DbManager;
-import com.andersenlab.patternsSample.entity.Book;
 import com.andersenlab.patternsSample.entity.Magazine;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
 
@@ -69,7 +68,7 @@ public class MagazineDao extends AbstractJDBCDao<Magazine, Long> {
 
     @Override
     protected Magazine buildEntity(ResultSet resultSet) throws SQLException {
-        return Magazine.newBuilder().setId(resultSet.getLong(1))
+        return new Magazine.Builder().setId(resultSet.getLong(1))
                 .setTitle(resultSet.getString(2))
                 .setPublishDate(resultSet.getDate(3))
                 .setSerialNumber(resultSet.getInt(4))

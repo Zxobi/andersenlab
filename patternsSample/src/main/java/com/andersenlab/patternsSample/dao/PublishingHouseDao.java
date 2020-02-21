@@ -3,7 +3,9 @@ package com.andersenlab.patternsSample.dao;
 import com.andersenlab.patternsSample.db.DbManager;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PublishingHouseDao extends AbstractJDBCDao<PublishingHouse, Long> {
 

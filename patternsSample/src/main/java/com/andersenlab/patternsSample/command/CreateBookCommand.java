@@ -2,7 +2,6 @@ package com.andersenlab.patternsSample.command;
 
 import com.andersenlab.patternsSample.dao.Dao;
 import com.andersenlab.patternsSample.entity.Book;
-import com.andersenlab.patternsSample.entity.Literature;
 import com.andersenlab.patternsSample.io.Printer;
 import com.andersenlab.patternsSample.io.Reader;
 

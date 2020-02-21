@@ -1,9 +1,8 @@
 package com.andersenlab.patternsSample.command;
 
 import com.andersenlab.patternsSample.dao.Dao;
-import com.andersenlab.patternsSample.util.InfoHolder;
-import com.andersenlab.patternsSample.io.Printer;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
+import com.andersenlab.patternsSample.io.Printer;
 
 import java.util.List;
 import java.util.stream.Collectors;

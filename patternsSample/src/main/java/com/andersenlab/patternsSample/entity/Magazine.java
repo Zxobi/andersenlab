@@ -4,7 +4,7 @@ public class Magazine extends Literature {
 
     private int serialNumber;
 
-    public Magazine(MagazineBuilder builder) {
+    public Magazine(Builder builder) {
         super(builder);
         this.serialNumber = builder.serialNumber;
     }
@@ -13,8 +13,28 @@ public class Magazine extends Literature {
         return serialNumber;
     }
 
-    public static MagazineBuilder newBuilder() {
-        return new MagazineBuilder();
+    public static class Builder extends Literature.Builder<Builder> {
+
+        int serialNumber;
+
+        public Builder() {
+
+        }
+
+        public Builder setSerialNumber(int serialNumber) {
+            this.serialNumber = serialNumber;
+            return self();
+        }
+
+        @Override
+        public Magazine build() {
+            return new Magazine(this);
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
     }
 
     @Override

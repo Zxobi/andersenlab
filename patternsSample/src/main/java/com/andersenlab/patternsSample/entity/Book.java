@@ -4,7 +4,7 @@ public class Book extends Literature {
 
     private String author;
 
-    public Book(BookBuilder builder) {
+    public Book(Builder builder) {
         super(builder);
         this.author = builder.author;
     }
@@ -13,8 +13,28 @@ public class Book extends Literature {
         return author;
     }
 
-    public static BookBuilder newBuilder() {
-        return new BookBuilder();
+    public static class Builder extends Literature.Builder<Builder> {
+
+        String author;
+
+        public Builder() {
+
+        }
+
+        public Builder setAuthor(String author) {
+            this.author = author;
+            return self();
+        }
+
+        @Override
+        public Book build() {
+            return new Book(this);
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
     }
 
     @Override
