@@ -2,8 +2,9 @@ package com.andersenlab.patternsSample;
 
 import com.andersenlab.patternsSample.command.*;
 import com.andersenlab.patternsSample.dao.Dao;
+import com.andersenlab.patternsSample.dao.jpa.EntityManagerProvider;
 import com.andersenlab.patternsSample.dao.jpa.GenericJPADao;
-import com.andersenlab.patternsSample.dao.jpa.HibernateUtil;
+import com.andersenlab.patternsSample.dao.jpa.HibernateEntityManagerProvider;
 import com.andersenlab.patternsSample.entity.Book;
 import com.andersenlab.patternsSample.entity.Magazine;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
@@ -12,8 +13,6 @@ import com.andersenlab.patternsSample.io.ConsoleReader;
 import com.andersenlab.patternsSample.io.Printer;
 import com.andersenlab.patternsSample.io.Reader;
 import com.andersenlab.patternsSample.util.InfoHolder;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -22,11 +21,10 @@ import java.util.Map;
 public class Application {
 
     public static void main(String[] args) {
-        Session session = new Configuration().configure().buildSessionFactory().openSession();
-        HibernateUtil.INSTANCE.getSession();
-        Dao<Book, Long> bookDao = new GenericJPADao<>(Book.class);
-        Dao<Magazine, Long> magazineDao = new GenericJPADao<>(Magazine.class);
-        Dao<PublishingHouse, Long> publishingHouseDao = new GenericJPADao<>(PublishingHouse.class);
+        EntityManagerProvider entityManagerProvider = new HibernateEntityManagerProvider();
+        Dao<Book, Long> bookDao = new GenericJPADao<>(Book.class, entityManagerProvider);
+        Dao<Magazine, Long> magazineDao = new GenericJPADao<>(Magazine.class, entityManagerProvider);
+        Dao<PublishingHouse, Long> publishingHouseDao = new GenericJPADao<>(PublishingHouse.class, entityManagerProvider);
 
         Printer printer = new ConsolePrinter();
         Reader reader = new ConsoleReader(printer);
