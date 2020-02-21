@@ -1,4 +1,4 @@
-package com.andersenlab.patternsSample.dao;
+package com.andersenlab.patternsSample.dao.jdbc;
 
 import com.andersenlab.patternsSample.db.DbManager;
 import com.andersenlab.patternsSample.entity.PublishingHouse;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PublishingHouseDao extends AbstractJDBCDao<PublishingHouse, Long> {
+public class PublishingHouseJDBCDao extends AbstractJDBCDao<PublishingHouse, Long> {
 
     private static final String STATEMENT_GET_PUBLISHING_HOUSE_ALL = "SELECT id, name " +
             "FROM Publishing_house ";
@@ -17,7 +17,7 @@ public class PublishingHouseDao extends AbstractJDBCDao<PublishingHouse, Long> {
     private static final String STATEMENT_CREATE_PUBLISHING_HOUSE = "INSERT INTO publishing_house(name) values(?)";
 
 
-    public PublishingHouseDao(DbManager dbManager) {
+    public PublishingHouseJDBCDao(DbManager dbManager) {
         super(dbManager);
     }
 

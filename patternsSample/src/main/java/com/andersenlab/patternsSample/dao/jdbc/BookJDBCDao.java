@@ -1,4 +1,4 @@
-package com.andersenlab.patternsSample.dao;
+package com.andersenlab.patternsSample.dao.jdbc;
 
 import com.andersenlab.patternsSample.db.DbManager;
 import com.andersenlab.patternsSample.entity.Book;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BookDao extends AbstractJDBCDao<Book, Long> {
+public class BookJDBCDao extends AbstractJDBCDao<Book, Long> {
 
     private static final String TYPE_BOOK = "book";
 
@@ -24,7 +24,7 @@ public class BookDao extends AbstractJDBCDao<Book, Long> {
     private static final String STATEMENT_CREATE_BOOK = "INSERT INTO Literature(type, title, author, publish_date, publishing_house_id) " +
             "VALUES(?, ?, ?, ?, ?);";
 
-    public BookDao(DbManager dbManager) {
+    public BookJDBCDao(DbManager dbManager) {
         super(dbManager);
     }
 

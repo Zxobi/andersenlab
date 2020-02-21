@@ -1,4 +1,4 @@
-package com.andersenlab.patternsSample.dao;
+package com.andersenlab.patternsSample.dao.jdbc;
 
 import com.andersenlab.patternsSample.db.DbManager;
 import com.andersenlab.patternsSample.entity.Magazine;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MagazineDao extends AbstractJDBCDao<Magazine, Long> {
+public class MagazineJDBCDao extends AbstractJDBCDao<Magazine, Long> {
     private static final String TYPE_MAGAZINE = "magazine";
 
     private static final String STATEMENT_GET_MAGAZINE_ALL = "SELECT l.id, l.title, l.publish_date, l.serial_num, p.id, p.name " +
@@ -23,7 +23,7 @@ public class MagazineDao extends AbstractJDBCDao<Magazine, Long> {
     private static final String STATEMENT_CREATE_MAGAZINE = "INSERT INTO Literature(type, title, serial_num, publish_date, publishing_house_id) " +
             "VALUES(?, ?, ?, ?, ?);";
 
-    public MagazineDao(DbManager dbManager) {
+    public MagazineJDBCDao(DbManager dbManager) {
         super(dbManager);
     }
 

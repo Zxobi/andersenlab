@@ -1,5 +1,6 @@
-package com.andersenlab.patternsSample.dao;
+package com.andersenlab.patternsSample.dao.jdbc;
 
+import com.andersenlab.patternsSample.dao.Dao;
 import com.andersenlab.patternsSample.db.DbManager;
 
 import java.sql.*;

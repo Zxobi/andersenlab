@@ -1,8 +1,20 @@
 package com.andersenlab.patternsSample.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Magazine extends Literature {
 
+    @Column(name = "serial_number")
     private int serialNumber;
+
+    protected Magazine() {
+
+    }
 
     public Magazine(Builder builder) {
         super(builder);

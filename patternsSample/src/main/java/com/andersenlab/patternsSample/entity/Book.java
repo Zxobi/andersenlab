@@ -1,8 +1,20 @@
 package com.andersenlab.patternsSample.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Book extends Literature {
 
+    @Column(name = "author")
     private String author;
+
+    protected Book() {
+
+    }
 
     public Book(Builder builder) {
         super(builder);

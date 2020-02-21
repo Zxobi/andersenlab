@@ -1,15 +1,26 @@
 package com.andersenlab.patternsSample.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class PublishingHouse {
 
+    @Id
+    @GeneratedValue()
+    @Column(name = "id", nullable = false, updatable = false)
     private long id;
+    @Column(name = "name")
     private String name;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publishingHouse", cascade = CascadeType.ALL)
     private List<Literature> literatures = new ArrayList<>();
+
+    public PublishingHouse() {
+
+    }
 
     public PublishingHouse(String name) {
         this.name = name;
