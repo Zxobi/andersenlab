@@ -6,7 +6,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Magazine extends Literature {
 
     @Column(name = "serial_number")
