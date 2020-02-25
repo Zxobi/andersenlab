@@ -2,7 +2,6 @@ package com.andersenlab.bookstorageweb.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.Collection;
 
 @Entity
 public class Book extends Literature {

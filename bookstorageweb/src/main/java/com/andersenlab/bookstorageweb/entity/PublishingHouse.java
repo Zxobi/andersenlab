@@ -1,5 +1,8 @@
 package com.andersenlab.bookstorageweb.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +20,7 @@ public class PublishingHouse {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publishingHouse", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     private List<Literature> literatures = new ArrayList<>();
 
     public PublishingHouse() {

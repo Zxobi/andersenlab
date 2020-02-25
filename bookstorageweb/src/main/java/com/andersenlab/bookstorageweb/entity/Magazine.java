@@ -2,13 +2,11 @@ package com.andersenlab.bookstorageweb.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
 public class Magazine extends Literature {
 
-    @Column(name = "serial_number")
+    @Column(name = "serial_number", nullable = false, updatable = false)
     private int serialNumber;
 
     protected Magazine() {

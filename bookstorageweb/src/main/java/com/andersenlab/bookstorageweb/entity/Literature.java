@@ -1,10 +1,20 @@
 package com.andersenlab.bookstorageweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Book.class, name = "book"),
+        @JsonSubTypes.Type(value = Magazine.class, name = "magazine")
+})
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Literature")
 public abstract class Literature {
 
@@ -12,12 +22,12 @@ public abstract class Literature {
     @GeneratedValue
     @Column(name = "id", nullable = false, updatable = false)
     protected long id;
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     protected String title;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publish_house_id", referencedColumnName = "id")
+    @JoinColumn(name = "publish_house_id", referencedColumnName = "id", updatable = false)
     protected PublishingHouse publishingHouse;
-    @Column(name = "publish_date")
+    @Column(name = "publish_date", nullable = false, updatable = false)
     protected Date publishDate;
 
     protected Literature() {
@@ -81,4 +91,5 @@ public abstract class Literature {
 
         protected abstract B self();
     }
+
 }
