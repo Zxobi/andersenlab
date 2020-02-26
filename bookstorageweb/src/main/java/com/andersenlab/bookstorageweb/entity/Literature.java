@@ -24,7 +24,7 @@ public abstract class Literature {
     protected long id;
     @Column(name = "title", nullable = false)
     protected String title;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "publish_house_id", referencedColumnName = "id", updatable = false)
     protected PublishingHouse publishingHouse;
     @Column(name = "publish_date", nullable = false, updatable = false)
@@ -51,6 +51,10 @@ public abstract class Literature {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public PublishingHouse getPublishingHouse() {

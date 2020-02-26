@@ -22,6 +22,10 @@ public class Book extends Literature {
         return author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public static class Builder extends Literature.Builder<Builder> {
 
         String author;
