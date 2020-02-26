@@ -4,10 +4,10 @@ import com.andersenlab.bookstorageweb.entity.Book;
 import com.andersenlab.bookstorageweb.entity.Literature;
 import com.andersenlab.bookstorageweb.entity.Magazine;
 import com.andersenlab.bookstorageweb.entity.PublishingHouse;
-import com.andersenlab.bookstorageweb.repository.LiteratureRepository;
 import com.andersenlab.bookstorageweb.repository.PublishingHouseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +18,9 @@ import java.util.Optional;
 public class PublishingHouseController {
 
     private final PublishingHouseRepository publishingHouseRepository;
-    private final LiteratureRepository literatureRepository;
 
-    public PublishingHouseController(
-            PublishingHouseRepository publishingHouseRepository,
-            LiteratureRepository literatureRepository
-    ) {
+    public PublishingHouseController(PublishingHouseRepository publishingHouseRepository) {
         this.publishingHouseRepository = publishingHouseRepository;
-        this.literatureRepository = literatureRepository;
     }
 
     @GetMapping(value = "/publishingHouses")
@@ -54,6 +49,7 @@ public class PublishingHouseController {
         return new ResponseEntity<>(publishingHouseOptional.get().getLiteratures(), HttpStatus.OK);
     }
 
+    @Secured("ROLE_REDACTOR")
     @Transactional
     @PostMapping(value = "/publishingHouses/{id}/literature")
     public ResponseEntity<? extends Literature> getPublishingHouseLiterature(
@@ -82,6 +78,7 @@ public class PublishingHouseController {
         return new ResponseEntity<>(literature, HttpStatus.OK);
     }
 
+    @Secured("ROLE_REDACTOR")
     @Transactional
     @PostMapping(value = "/publishingHouses")
     public ResponseEntity<PublishingHouse> createPublishingHouse(@RequestBody PublishingHouse publishingHouse) {
@@ -93,6 +90,7 @@ public class PublishingHouseController {
         return new ResponseEntity<>(publishingHouse, HttpStatus.CREATED);
     }
 
+    @Secured("ROLE_REDACTOR")
     @Transactional
     @PutMapping(value = "/publishingHouses/{id}")
     public ResponseEntity<PublishingHouse> updatePublishingHouse(@PathVariable(value = "id") Long id, @RequestBody PublishingHouse publishingHouse) {
@@ -109,6 +107,7 @@ public class PublishingHouseController {
         return new ResponseEntity<>(curPublishingHouse, HttpStatus.OK);
     }
 
+    @Secured("ROLE_REDACTOR")
     @Transactional
     @DeleteMapping(value = "/publishingHouses/{id}")
     public ResponseEntity<?> deletePublishingHouse(@PathVariable(value = "id") Long id) {

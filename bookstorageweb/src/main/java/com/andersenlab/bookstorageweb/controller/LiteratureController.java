@@ -5,6 +5,7 @@ import com.andersenlab.bookstorageweb.entity.Literature;
 import com.andersenlab.bookstorageweb.repository.LiteratureRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,7 @@ public class LiteratureController {
         );
     }
 
+    @Secured("ROLE_REDACTOR")
     @Transactional
     @PostMapping("/literature")
     public ResponseEntity<Literature> createLiterature(@RequestBody Literature literature) {
@@ -59,6 +61,7 @@ public class LiteratureController {
         return new ResponseEntity<>(literature, HttpStatus.CREATED);
     }
 
+    @Secured("ROLE_REDACTOR")
     @Transactional
     @PutMapping("/literature/{id}")
     public ResponseEntity<Literature> updateLiterature(@PathVariable(value = "id") Long id, @RequestBody Literature literature) {
@@ -80,6 +83,7 @@ public class LiteratureController {
         return new ResponseEntity<>(curLiterature, HttpStatus.OK);
     }
 
+    @Secured("ROLE_REDACTOR")
     @DeleteMapping("/literature/{id}")
     public ResponseEntity<?> removeLiterature(@PathVariable(value = "id") Long id) {
         if (!literatureRepository.existsById(id)){
