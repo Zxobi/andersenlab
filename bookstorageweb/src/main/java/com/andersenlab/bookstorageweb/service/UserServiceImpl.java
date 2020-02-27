@@ -4,6 +4,7 @@ import com.andersenlab.bookstorageweb.entity.Role;
 import com.andersenlab.bookstorageweb.entity.User;
 import com.andersenlab.bookstorageweb.repository.UserRepository;
 import com.andersenlab.bookstorageweb.security.UserPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +20,11 @@ import java.util.stream.Collectors;
 @Primary
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
-    PasswordEncoder encoder;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
-        this.userRepository = userRepository;
-        this.encoder = encoder;
-    }
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public Collection<User> findAll() {
