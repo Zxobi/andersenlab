@@ -4,7 +4,7 @@ import com.andersenlab.bookstorageweb.entity.Role;
 import com.andersenlab.bookstorageweb.entity.User;
 import com.andersenlab.bookstorageweb.repository.UserRepository;
 import com.andersenlab.bookstorageweb.security.UserPrincipal;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Qualifier("custom")
+@Primary
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;

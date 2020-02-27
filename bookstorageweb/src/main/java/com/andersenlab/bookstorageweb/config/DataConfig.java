@@ -1,6 +1,5 @@
 package com.andersenlab.bookstorageweb.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,8 +18,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DataConfig {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
+
+    public DataConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource dataSource() {
