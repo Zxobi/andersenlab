@@ -19,8 +19,7 @@ public class ProfilingAspect {
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();
         try {
-            Object retVal = pjp.proceed();
-            return retVal;
+            return pjp.proceed();
         } finally {
             log.debug(
                     "Completed " +
