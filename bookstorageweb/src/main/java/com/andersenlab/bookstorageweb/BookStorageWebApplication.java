@@ -3,16 +3,20 @@ package com.andersenlab.bookstorageweb;
 import com.andersenlab.bookstorageweb.entity.Role;
 import com.andersenlab.bookstorageweb.repository.RoleRepository;
 import com.andersenlab.bookstorageweb.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
 import java.util.Set;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy
+@Slf4j
 public class BookStorageWebApplication {
 
     @Autowired
@@ -24,7 +28,7 @@ public class BookStorageWebApplication {
 
     @EventListener
     public void handleContextRefreshEvent(ContextRefreshedEvent ctxRefreshedEvent) {
-        System.out.println("Init db with user entities");
+        log.info("Init db with user entities");
         RoleRepository roleRepository = context.getBean(RoleRepository.class);
         UserService userService = context.getBean(UserService.class);
 
