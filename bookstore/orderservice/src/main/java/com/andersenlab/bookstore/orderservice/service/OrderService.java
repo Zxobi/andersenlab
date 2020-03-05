@@ -15,7 +15,4 @@ public interface OrderService {
 
     Order createOrder(List<BookOrder> bookOrderMap);
 
-    List<BookDTO> getOrderBooks(Order order);
-    UserDTO getOrderUser(Order order);
-
 }

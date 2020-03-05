@@ -5,7 +5,9 @@ import com.andersenlab.bookstore.orderservice.model.Order;
 import com.andersenlab.bookstore.orderservice.model.dto.BookDTO;
 import com.andersenlab.bookstore.orderservice.model.dto.UserDTO;
 import com.andersenlab.bookstore.orderservice.repository.OrderRepository;
+import com.andersenlab.bookstore.orderservice.service.BookService;
 import com.andersenlab.bookstore.orderservice.service.OrderService;
+import com.andersenlab.bookstore.orderservice.service.UserService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,17 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private static final String URL_BASE_USER_SERVICE = "http://localhost:9103";
-    private static final String URL_BASE_BOOK_SERVICE = "http://localhost:9101";
-
     private final OrderRepository orderRepository;
+
+    private final UserService userService;
+    private final BookService bookService;
+
     private final RestTemplate restTemplate;
 
-    public OrderServiceImpl(OrderRepository orderRepository, RestTemplate restTemplate) {
+    public OrderServiceImpl(BookService bookService, OrderRepository orderRepository, UserService userService, RestTemplate restTemplate) {
+        this.bookService = bookService;
         this.orderRepository = orderRepository;
+        this.userService = userService;
         this.restTemplate = restTemplate;
     }
 
@@ -46,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
             bookIdToCountMap.put(bookOrder.getBookId(), bookOrder.getCount());
         }
 
-        List<BookDTO> bookDTOs = getBooksById(bookIdToCountMap.keySet());
+        List<BookDTO> bookDTOs = bookService.getBooksById(bookIdToCountMap.keySet());
         float totalPrice = bookDTOs.stream()
                 .map(bookDTO -> bookDTO.getPrice() * bookIdToCountMap.get(bookDTO.getId()))
                 .reduce(0f, Float::sum);
@@ -54,29 +59,12 @@ public class OrderServiceImpl implements OrderService {
         UserDTO user = getCurrentUser();
 
         Order order = new Order(0, totalPrice, new Date(), user.getId(), bookOrders);
-;
+
         return orderRepository.saveAndFlush(order);
     }
 
     private UserDTO getCurrentUser() {
-        return restTemplate.getForEntity(URL_BASE_USER_SERVICE + "/users/current", UserDTO.class).getBody();
-    }
-
-    @Override
-    public List<BookDTO> getOrderBooks(Order order) {
-        return getBooksById(order.getBooks().stream().map(BookOrder::getBookId).collect(Collectors.toList()));
-    }
-
-    @Override
-    public UserDTO getOrderUser(Order order) {
-        return restTemplate.getForEntity(URL_BASE_USER_SERVICE + "/users/" + order.getUserId(), UserDTO.class).getBody();
-    }
-
-    private List<BookDTO> getBooksById(Iterable<Integer> ids) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUriString(URL_BASE_BOOK_SERVICE + "/books");
-        ids.forEach(bookId -> uriBuilder.queryParam("bookId", bookId));
-        return restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<BookDTO>>() {}).getBody();
+        return userService.getCurrentUser();
     }
 
 }
