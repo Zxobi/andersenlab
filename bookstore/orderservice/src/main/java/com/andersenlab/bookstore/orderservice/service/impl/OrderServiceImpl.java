@@ -8,14 +8,9 @@ import com.andersenlab.bookstore.orderservice.repository.OrderRepository;
 import com.andersenlab.bookstore.orderservice.service.BookService;
 import com.andersenlab.bookstore.orderservice.service.OrderService;
 import com.andersenlab.bookstore.orderservice.service.UserService;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -25,13 +20,10 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final BookService bookService;
 
-    private final RestTemplate restTemplate;
-
-    public OrderServiceImpl(BookService bookService, OrderRepository orderRepository, UserService userService, RestTemplate restTemplate) {
+    public OrderServiceImpl(BookService bookService, OrderRepository orderRepository, UserService userService) {
         this.bookService = bookService;
         this.orderRepository = orderRepository;
         this.userService = userService;
-        this.restTemplate = restTemplate;
     }
 
     @Override
