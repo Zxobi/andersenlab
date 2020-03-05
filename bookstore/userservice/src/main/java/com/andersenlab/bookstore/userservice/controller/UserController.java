@@ -1,6 +1,8 @@
 package com.andersenlab.bookstore.userservice.controller;
 
 import com.andersenlab.bookstore.userservice.model.User;
+import com.andersenlab.bookstore.userservice.model.dto.UserDTO;
+import com.andersenlab.bookstore.userservice.model.dto.UserMapper;
 import com.andersenlab.bookstore.userservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -19,40 +22,58 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserMapper userMapper;
+
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping
-        public ResponseEntity<List<User>> getUsers(@RequestParam(value = "userId", required = false) Integer[] ids) {
+    public ResponseEntity<List<UserDTO>> getUsers(@RequestParam(value = "userId", required = false) Integer[] ids) {
+        List<User> users = ids == null
+                ? userService.getUsers()
+                : userService.getUsersById(Arrays.asList(ids));
         return ResponseEntity.ok(
-                ids == null ? userService.getUsers() : userService.getUsersById(Arrays.asList(ids))
+                users.stream().map(userMapper::toDTO).collect(Collectors.toList())
         );
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        userService.createUser(user);
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        if (userDTO.getId() != 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        User user = userService.createUser(userMapper.toEntity(userDTO));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}").build(user.getId());
-        return ResponseEntity.created(location).body(user);
+        return ResponseEntity.created(location).body(userMapper.toDTO(user));
+    }
+
+    @GetMapping(path = "current")
+    public ResponseEntity<UserDTO> getCurrentUser() {
+        return getUserById(2);
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
-        return ResponseEntity.of(userService.getUser(id));
+    public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
+        return ResponseEntity.of(userService.getUser(id).map(userMapper::toDTO));
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.updateUser(user));
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(
+                userMapper.toDTO(
+                        userService.updateUser(userMapper.toEntity(userDTO))
+                )
+        );
     }
 
-    @DeleteMapping
-    public ResponseEntity<User> deleteUser(@RequestBody User user) {
-        userService.deleteUser(user);
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable int id) {
+        userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }

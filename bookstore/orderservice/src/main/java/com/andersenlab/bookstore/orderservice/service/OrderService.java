@@ -1,16 +1,21 @@
 package com.andersenlab.bookstore.orderservice.service;
 
-import com.andersenlab.bookstore.orderservice.model.Book;
-import com.andersenlab.bookstore.orderservice.model.OrderDTO;
+import com.andersenlab.bookstore.orderservice.model.BookOrder;
+import com.andersenlab.bookstore.orderservice.model.Order;
+import com.andersenlab.bookstore.orderservice.model.dto.BookDTO;
+import com.andersenlab.bookstore.orderservice.model.dto.UserDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
 
-    List<OrderDTO> getOrders();
-    Optional<OrderDTO> getOrderById(int id);
+    List<Order> getOrders();
+    Optional<Order> getOrderById(int id);
 
-    OrderDTO createOrder(int userId, List<Book> books);
+    Order createOrder(List<BookOrder> bookOrderMap);
+
+    List<BookDTO> getOrderBooks(Order order);
+    UserDTO getOrderUser(Order order);
 
 }

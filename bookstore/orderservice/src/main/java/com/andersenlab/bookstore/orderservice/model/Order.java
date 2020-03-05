@@ -1,8 +1,8 @@
 package com.andersenlab.bookstore.orderservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,9 +10,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "Orders")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Order {
 
     @Id
@@ -34,10 +34,6 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id")
     )
     @Column(name = "book_id")
-    private List<Integer> bookIds;
-
-    public Order() {
-
-    }
+    private List<BookOrder> books;
 
 }

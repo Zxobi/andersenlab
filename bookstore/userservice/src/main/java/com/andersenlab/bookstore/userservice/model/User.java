@@ -1,16 +1,16 @@
 package com.andersenlab.bookstore.userservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Users")
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -19,9 +19,5 @@ public class User {
 
     @Column(name = "username")
     private String username;
-
-    public User() {
-
-    }
 
 }

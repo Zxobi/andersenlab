@@ -1,21 +1,21 @@
-package com.andersenlab.bookstore.orderservice.model;
+package com.andersenlab.bookstore.orderservice.model.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 public class OrderDTO {
 
     private int id;
     private float totalPrice;
     private Date createdDate;
-    private User user;
-    private List<Book> books;
+    private UserDTO user;
+    private List<BookOrderDTO> books;
 
 }

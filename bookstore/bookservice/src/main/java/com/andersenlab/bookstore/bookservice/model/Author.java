@@ -2,17 +2,17 @@ package com.andersenlab.bookstore.bookservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "authors")
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 public class Author {
 
     @Id
@@ -25,9 +25,5 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     @JsonBackReference
     private List<Book> books;
-
-    public Author() {
-
-    }
 
 }

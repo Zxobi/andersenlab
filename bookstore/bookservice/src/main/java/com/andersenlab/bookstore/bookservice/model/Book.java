@@ -2,17 +2,17 @@ package com.andersenlab.bookstore.bookservice.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "books")
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 public class Book {
 
     @Id
@@ -28,7 +28,7 @@ public class Book {
     @Column(name = "quantity")
     private int quantity;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "book_author",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -36,9 +36,5 @@ public class Book {
     )
     @JsonManagedReference
     private List<Author> authors;
-
-    public Book() {
-
-    }
 
 }
