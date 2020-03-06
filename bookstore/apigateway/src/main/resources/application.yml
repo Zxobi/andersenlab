@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 9090
+
+zuul:
+  ignored-services: '*'
+  prefix: /api
+  strip-prefix: true
+  routes:
+    users:
+      path: /users/**
+      serviceId: user-service
+      strip-prefix: false
+    books:
+      path: /books/**
+      serviceId: book-service
+      strip-prefix: false
+    orders:
+      path: /orders/**
+      serviceId: order-service
+      strip-prefix: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9100/eureka
