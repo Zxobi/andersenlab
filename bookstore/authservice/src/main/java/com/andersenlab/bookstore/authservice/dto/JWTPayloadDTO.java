@@ -9,11 +9,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetailsDTO {
+public class JWTPayloadDTO {
 
-    private int id;
+    private int userId;
     private String username;
-    private String password;
     private List<String> authorities;
 
 }

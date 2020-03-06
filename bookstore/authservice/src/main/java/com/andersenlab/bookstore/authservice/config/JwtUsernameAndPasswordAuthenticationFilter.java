@@ -1,5 +1,7 @@
 package com.andersenlab.bookstore.authservice.config;
 
+import com.andersenlab.bookstore.authservice.dto.UserDetailsDTO;
+import com.andersenlab.bookstore.authservice.dto.UserDetailsWrapper;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -53,14 +54,16 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
+                                            Authentication authResult) throws IOException {
         log.info("Authentication successful with authResult: " + authResult);
 
+        UserDetailsDTO userDetailsDTO = ((UserDetailsWrapper)authResult.getPrincipal()).getUserDetails();
         long now = System.currentTimeMillis();
         String token = JWT.create()
                 .withSubject(authResult.getName())
                 .withIssuedAt(new Date(now))
                 .withExpiresAt(new Date(now + jwtConfig.getExpiration() * 1000))
+                .withClaim("userId", userDetailsDTO.getId())
                 .withArrayClaim(
                         "authorities",
                         authResult.getAuthorities().stream()
