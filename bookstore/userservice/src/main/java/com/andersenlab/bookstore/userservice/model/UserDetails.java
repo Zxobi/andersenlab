@@ -1,0 +1,34 @@
+package com.andersenlab.bookstore.userservice.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "Users")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "username", unique = true)
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<String> authorities;
+
+}

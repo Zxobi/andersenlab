@@ -1,6 +1,6 @@
 package com.andersenlab.bookstore.userservice.service.impl;
 
-import com.andersenlab.bookstore.userservice.model.User;
+import com.andersenlab.bookstore.userservice.model.UserDetails;
 import com.andersenlab.bookstore.userservice.repository.UserRepository;
 import com.andersenlab.bookstore.userservice.service.UserService;
 import org.springframework.stereotype.Service;
@@ -18,27 +18,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUser(int userId) {
+    public Optional<UserDetails> getUser(int userId) {
         return userRepository.findById(userId);
     }
 
     @Override
-    public List<User> getUsers() {
+    public Optional<UserDetails> getUserByUsername(String username) {
+        return userRepository.getUserDetailsByUsername(username);
+    }
+
+    @Override
+    public List<UserDetails> getUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public List<User> getUsersById(Iterable<Integer> ids) {
+    public List<UserDetails> getUsersById(Iterable<Integer> ids) {
         return userRepository.findAllById(ids);
     }
 
     @Override
-    public User updateUser(User user) {
+    public UserDetails updateUser(UserDetails user) {
         return userRepository.save(user);
     }
 
     @Override
-    public User createUser(User user) {
+    public UserDetails createUser(UserDetails user) {
         return userRepository.save(user);
     }
 

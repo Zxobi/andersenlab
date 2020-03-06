@@ -1,18 +1,19 @@
 package com.andersenlab.bookstore.userservice.service;
 
-import com.andersenlab.bookstore.userservice.model.User;
+import com.andersenlab.bookstore.userservice.model.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> getUser(int userId);
-    List<User> getUsers();
-    List<User> getUsersById(Iterable<Integer> ids);
+    Optional<UserDetails> getUser(int userId);
+    Optional<UserDetails> getUserByUsername(String username);
+    List<UserDetails> getUsers();
+    List<UserDetails> getUsersById(Iterable<Integer> ids);
 
-    User updateUser(User user);
-    User createUser(User user);
+    UserDetails updateUser(UserDetails user);
+    UserDetails createUser(UserDetails user);
     void deleteUserById(int id);
 
 
