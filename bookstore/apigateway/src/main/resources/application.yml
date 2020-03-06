@@ -10,6 +10,10 @@ zuul:
   prefix: /api
   strip-prefix: true
   routes:
+    auth:
+      path: /auth/**
+      serviceId: auth-service
+      strip-prefix: false
     users:
       path: /users/**
       serviceId: user-service
