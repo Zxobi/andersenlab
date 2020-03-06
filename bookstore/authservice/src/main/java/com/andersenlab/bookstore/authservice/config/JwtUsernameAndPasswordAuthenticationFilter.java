@@ -70,7 +70,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                 .map(GrantedAuthority::getAuthority).toArray(String[]::new))
                 .sign(Algorithm.HMAC256(jwtConfig.getSecret()));
 
-        response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+        response.addHeader(jwtConfig.getHeader(), token);
     }
 
     @Getter
