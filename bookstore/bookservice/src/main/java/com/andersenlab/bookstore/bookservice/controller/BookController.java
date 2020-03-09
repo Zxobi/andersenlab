@@ -1,10 +1,14 @@
 package com.andersenlab.bookstore.bookservice.controller;
 
+import com.andersenlab.bookstore.bookservice.common.Authorities;
 import com.andersenlab.bookstore.bookservice.common.dto.BookOrderDTO;
+import com.andersenlab.bookstore.bookservice.common.dto.JWTPayloadDTO;
 import com.andersenlab.bookstore.bookservice.model.Book;
 import com.andersenlab.bookstore.bookservice.common.dto.BookDTO;
 import com.andersenlab.bookstore.bookservice.common.mapper.BookMapper;
+import com.andersenlab.bookstore.bookservice.service.AuthService;
 import com.andersenlab.bookstore.bookservice.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,10 +23,13 @@ import java.util.stream.Collectors;
 public class BookController {
 
     private final BookService bookService;
+    private final AuthService authService;
+
     private final BookMapper bookMapper;
 
-    public BookController(BookService bookService, BookMapper bookMapper) {
+    public BookController(BookService bookService, AuthService authService, BookMapper bookMapper) {
         this.bookService = bookService;
+        this.authService = authService;
         this.bookMapper = bookMapper;
     }
 
@@ -42,9 +49,11 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
-        if (bookDTO.getId() != 0) {
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity<BookDTO> createBook(@RequestHeader("JWT-token") String authToken, @RequestBody BookDTO bookDTO) {
+        JWTPayloadDTO jwtPayload;
+        if ((jwtPayload = validateAuthToken(authToken)) == null
+                || !jwtPayload.getAuthorities().contains(Authorities.ADMIN.name())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         Book book = bookService.createBook(bookMapper.toEntity(bookDTO));
@@ -61,7 +70,13 @@ public class BookController {
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<BookDTO> updateBook(@RequestBody BookDTO book) {
+    public ResponseEntity<BookDTO> updateBook(@RequestHeader("JWT-token") String authToken, @RequestBody BookDTO book) {
+        JWTPayloadDTO jwtPayload;
+        if ((jwtPayload = validateAuthToken(authToken)) == null
+                || !jwtPayload.getAuthorities().contains(Authorities.ADMIN.name())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         return ResponseEntity.ok(
                 bookMapper.toDTO(
                         bookService.updateBook(bookMapper.toEntity(book))
@@ -70,9 +85,23 @@ public class BookController {
     }
 
     @DeleteMapping(path = "{id}")
-    public ResponseEntity<BookDTO> deleteBook(@PathVariable int id) {
+    public ResponseEntity<BookDTO> deleteBook(@RequestHeader("JWT-token") String authToken, @PathVariable int id) {
+        JWTPayloadDTO jwtPayload;
+        if ((jwtPayload = validateAuthToken(authToken)) == null
+                || !jwtPayload.getAuthorities().contains(Authorities.ADMIN.name())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         bookService.deleteBookById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private JWTPayloadDTO validateAuthToken(String authToken) {
+        if (authToken == null || authToken.isEmpty()) {
+            return null;
+        }
+
+        return authService.validate(authToken);
     }
 
 }
