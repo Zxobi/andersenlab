@@ -1,5 +1,6 @@
-package com.andersenlab.bookstore.authservice.dto;
+package com.andersenlab.bookstore.authservice.config;
 
+import com.andersenlab.bookstore.authservice.common.dto.UserDetailsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

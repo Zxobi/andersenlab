@@ -1,4 +1,4 @@
-package com.andersenlab.bookstore.authservice.dto;
+package com.andersenlab.bookstore.authservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetailsDTO {
+public class JWTPayloadDTO {
 
-    private int id;
-    private String username;
-    private String password;
+    private UserDTO user;
     private List<String> authorities;
 
 }

@@ -1,7 +1,7 @@
 package com.andersenlab.bookstore.authservice.service;
 
-import com.andersenlab.bookstore.authservice.dto.UserDetailsDTO;
-import com.andersenlab.bookstore.authservice.dto.UserDetailsWrapper;
+import com.andersenlab.bookstore.authservice.common.dto.UserDetailsDTO;
+import com.andersenlab.bookstore.authservice.config.UserDetailsWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

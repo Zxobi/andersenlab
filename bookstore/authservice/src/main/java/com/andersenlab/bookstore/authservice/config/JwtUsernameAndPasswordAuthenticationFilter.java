@@ -1,7 +1,7 @@
 package com.andersenlab.bookstore.authservice.config;
 
-import com.andersenlab.bookstore.authservice.dto.UserDetailsDTO;
-import com.andersenlab.bookstore.authservice.dto.UserDetailsWrapper;
+import com.andersenlab.bookstore.authservice.common.dto.UserDTO;
+import com.andersenlab.bookstore.authservice.common.dto.UserDetailsDTO;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,13 +57,19 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             Authentication authResult) throws IOException {
         log.info("Authentication successful with authResult: " + authResult);
 
+        ObjectMapper objectMapper = new ObjectMapper();
         UserDetailsDTO userDetailsDTO = ((UserDetailsWrapper)authResult.getPrincipal()).getUserDetails();
         long now = System.currentTimeMillis();
         String token = JWT.create()
                 .withSubject(authResult.getName())
                 .withIssuedAt(new Date(now))
                 .withExpiresAt(new Date(now + jwtConfig.getExpiration() * 1000))
-                .withClaim("userId", userDetailsDTO.getId())
+                .withClaim("user", objectMapper.writeValueAsString(
+                        new UserDTO(
+                                userDetailsDTO.getId(),
+                                userDetailsDTO.getUsername()
+                        )
+                ))
                 .withArrayClaim(
                         "authorities",
                         authResult.getAuthorities().stream()
