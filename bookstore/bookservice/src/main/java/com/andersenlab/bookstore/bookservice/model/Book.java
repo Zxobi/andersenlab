@@ -17,16 +17,16 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, updatable = false)
     private String title;
 
-    @Column(name = "price")
-    private float price;
+    @Column(name = "price", nullable = false)
+    private Float price;
 
-    @Column(name = "quantity")
-    private int quantity;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
     @ManyToMany
     @JoinTable(

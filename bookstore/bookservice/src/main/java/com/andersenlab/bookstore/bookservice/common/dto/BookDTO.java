@@ -1,4 +1,4 @@
-package com.andersenlab.bookstore.bookservice.model.dto;
+package com.andersenlab.bookstore.bookservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

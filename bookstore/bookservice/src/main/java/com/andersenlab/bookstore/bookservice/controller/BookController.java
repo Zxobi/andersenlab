@@ -1,8 +1,9 @@
 package com.andersenlab.bookstore.bookservice.controller;
 
+import com.andersenlab.bookstore.bookservice.common.dto.BookOrderDTO;
 import com.andersenlab.bookstore.bookservice.model.Book;
-import com.andersenlab.bookstore.bookservice.model.dto.BookDTO;
-import com.andersenlab.bookstore.bookservice.model.dto.BookMapper;
+import com.andersenlab.bookstore.bookservice.common.dto.BookDTO;
+import com.andersenlab.bookstore.bookservice.common.mapper.BookMapper;
 import com.andersenlab.bookstore.bookservice.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,11 @@ public class BookController {
     public BookController(BookService bookService, BookMapper bookMapper) {
         this.bookService = bookService;
         this.bookMapper = bookMapper;
+    }
+
+    @RequestMapping("/books/reserve")
+    public ResponseEntity<List<BookOrderDTO>> reserveBooks(@RequestBody List<BookOrderDTO> bookOrders) {
+        return ResponseEntity.ok(bookService.reserveBooks(bookOrders));
     }
 
     @GetMapping

@@ -1,5 +1,6 @@
-package com.andersenlab.bookstore.bookservice.model.dto;
+package com.andersenlab.bookstore.bookservice.common.mapper;
 
+import com.andersenlab.bookstore.bookservice.common.dto.AuthorDTO;
 import com.andersenlab.bookstore.bookservice.model.Author;
 import org.springframework.stereotype.Component;
 
