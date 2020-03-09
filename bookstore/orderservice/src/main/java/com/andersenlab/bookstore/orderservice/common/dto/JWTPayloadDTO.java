@@ -1,4 +1,4 @@
-package com.andersenlab.bookstore.orderservice.model.dto;
+package com.andersenlab.bookstore.orderservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class JWTPayloadDTO {
 
-    private int userId;
-    private String username;
+    private UserDTO user;
     private List<String> authorities;
 
 }

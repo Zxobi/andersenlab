@@ -1,4 +1,4 @@
-package com.andersenlab.bookstore.orderservice.model.dto;
+package com.andersenlab.bookstore.orderservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookOrderDTO {
+public class UserDTO {
 
-    private int count;
-    private BookDTO book;
+    private int id;
+    private String username;
 
 }

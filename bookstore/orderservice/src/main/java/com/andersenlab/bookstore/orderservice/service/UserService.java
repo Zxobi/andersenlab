@@ -1,6 +1,6 @@
 package com.andersenlab.bookstore.orderservice.service;
 
-import com.andersenlab.bookstore.orderservice.model.dto.UserDTO;
+import com.andersenlab.bookstore.orderservice.common.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

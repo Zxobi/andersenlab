@@ -1,4 +1,4 @@
-package com.andersenlab.bookstore.orderservice.model.dto;
+package com.andersenlab.bookstore.orderservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +16,7 @@ public class OrderDTO {
     private float totalPrice;
     private Date createdDate;
     private UserDTO user;
+    private String status;
     private List<BookOrderDTO> books;
 
 }

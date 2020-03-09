@@ -13,9 +13,9 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 public class BookOrder {
 
-    @Column(name = "book_id")
+    @Column(name = "book_id", nullable = false, updatable = false)
     private int bookId;
-    @Column(name = "count")
+    @Column(name = "count", nullable = false, updatable = false)
     private int count;
 
 }
