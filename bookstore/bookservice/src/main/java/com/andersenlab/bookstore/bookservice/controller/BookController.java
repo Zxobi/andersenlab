@@ -33,7 +33,7 @@ public class BookController {
         this.bookMapper = bookMapper;
     }
 
-    @RequestMapping("/books/reserve")
+    @RequestMapping("/reserve")
     public ResponseEntity<List<BookOrderDTO>> reserveBooks(@RequestBody List<BookOrderDTO> bookOrders) {
         return ResponseEntity.ok(bookService.reserveBooks(bookOrders));
     }
