@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: payment-service
+
+server:
+  port: 9104
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9100/eureka
+
+logging:
+  level:
+    org.springframework: debug
+    com: debug
+
+kafka:
+  bootstrapAddress: localhost:9025
+  topic:
+    orderPaid: orderPaid
+    serviceGroupId: paymentService
