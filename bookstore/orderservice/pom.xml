@@ -17,6 +17,8 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <kafka.version>2.4.0</kafka.version>
+        <spring-kafka.version>2.4.3.RELEASE</spring-kafka.version>
     </properties>
 
     <dependencies>
@@ -40,6 +42,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${spring-kafka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka.version}</version>
         </dependency>
 
         <dependency>
