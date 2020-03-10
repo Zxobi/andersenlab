@@ -26,6 +26,10 @@ zuul:
       path: /orders/**
       serviceId: order-service
       strip-prefix: false
+    payment:
+      path: /payment/**
+      serviceId: payment-service
+      strip-prefix: false
 
 eureka:
   client:
