@@ -70,7 +70,8 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO createOrder(List<BookOrderDTO> bookOrdersDTO, UserDTO user) {
         bookOrdersDTO = bookService.reserveBooks(bookOrdersDTO);
 
-        float totalPrice = bookOrdersDTO.stream().map(bookOrder -> bookOrder.getBook().getPrice()).reduce(0f, Float::sum);
+        float totalPrice = bookOrdersDTO.stream().map(bookOrder -> bookOrder.getBook().getPrice() * bookOrder.getCount())
+                .reduce(0f, Float::sum);
         List<BookOrder> bookOrders = bookOrdersDTO.stream().map(bookOrderMapper::toEntity).collect(Collectors.toList());
 
         Order order = new Order(null, totalPrice, null, user.getId(), OrderStatus.CREATED, bookOrders);
