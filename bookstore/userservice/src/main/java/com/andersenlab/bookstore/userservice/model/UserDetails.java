@@ -16,9 +16,9 @@ public class UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username", unique = true, updatable = false)
     private String username;
 
     @Column(name = "password")

@@ -1,4 +1,4 @@
-package com.andersenlab.bookstore.userservice.model.dto;
+package com.andersenlab.bookstore.userservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetailsDTO {
+public class UserDTO {
 
     private int id;
     private String username;
-    private String password;
     private List<String> authorities;
 
 }

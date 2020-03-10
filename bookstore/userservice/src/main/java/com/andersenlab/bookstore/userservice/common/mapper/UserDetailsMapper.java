@@ -1,5 +1,7 @@
-package com.andersenlab.bookstore.userservice.model.dto;
+package com.andersenlab.bookstore.userservice.common.mapper;
 
+import com.andersenlab.bookstore.userservice.common.dto.UserDTO;
+import com.andersenlab.bookstore.userservice.common.dto.UserDetailsDTO;
 import com.andersenlab.bookstore.userservice.model.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +11,8 @@ public class UserDetailsMapper {
     public UserDTO toUserDTO(UserDetails userDetails) {
         return new UserDTO(
                 userDetails.getId(),
-                userDetails.getUsername()
+                userDetails.getUsername(),
+                userDetails.getAuthorities()
         );
     }
 
@@ -23,10 +26,12 @@ public class UserDetailsMapper {
     }
 
     public UserDetails toEntity(UserDTO userDTO) {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setId(userDTO.getId());
-        userDetails.setUsername(userDTO.getUsername());
-        return userDetails;
+        return new UserDetails(
+                userDTO.getId(),
+                userDTO.getUsername(),
+                null,
+                userDTO.getAuthorities()
+        );
     }
 
     public UserDetails toEntity(UserDetailsDTO userDetailsDTO) {

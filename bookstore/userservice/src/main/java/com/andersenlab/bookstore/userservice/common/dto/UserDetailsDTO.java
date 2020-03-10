@@ -1,15 +1,19 @@
-package com.andersenlab.bookstore.userservice.model.dto;
+package com.andersenlab.bookstore.userservice.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserDetailsDTO {
 
     private int id;
     private String username;
+    private String password;
+    private List<String> authorities;
 
 }

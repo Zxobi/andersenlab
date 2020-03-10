@@ -1,11 +1,14 @@
 package com.andersenlab.bookstore.userservice.controller;
 
+import com.andersenlab.bookstore.userservice.common.dto.JWTPayloadDTO;
+import com.andersenlab.bookstore.userservice.common.dto.UserDTO;
+import com.andersenlab.bookstore.userservice.common.dto.UserDetailsDTO;
+import com.andersenlab.bookstore.userservice.common.mapper.UserDetailsMapper;
 import com.andersenlab.bookstore.userservice.model.UserDetails;
-import com.andersenlab.bookstore.userservice.model.dto.UserDTO;
-import com.andersenlab.bookstore.userservice.model.dto.UserDetailsDTO;
-import com.andersenlab.bookstore.userservice.model.dto.UserDetailsMapper;
+import com.andersenlab.bookstore.userservice.service.AuthService;
 import com.andersenlab.bookstore.userservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +24,14 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final AuthService authService;
+
     private final UserDetailsMapper userDetailsMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, UserDetailsMapper userDetailsMapper, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, AuthService authService, UserDetailsMapper userDetailsMapper, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.authService = authService;
         this.userDetailsMapper = userDetailsMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -64,8 +70,15 @@ public class UserController {
     }
 
     @GetMapping(path = "current")
-    public ResponseEntity<UserDTO> getCurrentUser() {
-        return getUserById(2);
+    public ResponseEntity<UserDTO> getCurrentUser(@RequestHeader("JWT-token") String authToken) {
+        JWTPayloadDTO jwtPayloadDTO = validateAuthToken(authToken);
+        if (jwtPayloadDTO == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return ResponseEntity.of(
+                userService.getUser(jwtPayloadDTO.getUser().getId()).map(userDetailsMapper::toUserDTO)
+        );
     }
 
     @GetMapping(path = "{id}")
@@ -86,6 +99,14 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable int id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private JWTPayloadDTO validateAuthToken(String authToken) {
+        if (authToken == null || authToken.isEmpty()) {
+            return null;
+        }
+
+        return authService.validate(authToken);
     }
 
 }
