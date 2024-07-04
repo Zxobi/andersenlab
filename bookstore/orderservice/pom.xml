@@ -17,7 +17,7 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
-        <kafka.version>2.4.0</kafka.version>
+        <kafka.version>2.6.3</kafka.version>
         <spring-kafka.version>2.4.3.RELEASE</spring-kafka.version>
     </properties>
 
